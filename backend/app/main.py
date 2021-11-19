@@ -124,8 +124,13 @@ async def create_upload_file(file : UploadFile = File(...)):
 
 # sans docker
 @app.on_event("startup")
-async def startup_event():
+async def startup_event(db: Session = next(get_db())):
     BaseSQL.metadata.create_all(bind=engine)
+    init_db(db)
+
+@app.get("/init", tags=["produit"])
+def init_produits(db: Session = Depends(get_db)):
+    return init_db(db)
 
 @app.post("/inscription", tags=["utilisateur"])
 async def creer_utilisateur(utilisateur: Utilisateur_Schema, db: Session = Depends(get_db)):

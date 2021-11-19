@@ -18,7 +18,7 @@ from sqlalchemy import Column, String, DateTime, Float,Boolean, Integer
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Session
 import os
-
+import json
 
 class Utilisateur_Schema(BaseModel):
     utilisateur_id: Annotated[str, Field(default_factory=lambda: uuid4().hex)]
@@ -112,6 +112,18 @@ class Produit_Model(BaseSQL):
 
 # login dans psql : psql -U userpd -W dbesiee, puis rentre le mdp  (postgrespassword)
 # afficher la table : select * from "Product";
+
+
+def init_db(db:Session = Depends(get_db)):
+    with open('response.json', encoding='utf-8') as data_file:
+        init_data = json.loads(data_file.read())
+
+    for data in init_data:
+        data = Produit_Model(**data)
+        db.add(data)
+        db.commit()
+    return init_data
+
 
 def get_utilisateur_par_id(utilisateur_id: str, db: Session = Depends(get_db)) -> Utilisateur_Model:
     utilisateur_db = db.query(Utilisateur_Model).filter(Utilisateur_Model.utilisateur_id == utilisateur_id).first()
