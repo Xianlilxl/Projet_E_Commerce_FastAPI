@@ -60,6 +60,8 @@ Puis, lancez le front-end en parallèle :
   > cd frontend
   > npm install
   > npm start
+  
+Cette deuxième méthode s'est avéré efficace notamment lors du développement de l'interface de l'application car nous pouvions observer directement les changements à chaque modifications du front-end. Dans l'autre cas, il fallait rebuild le docker afin de voir les impacts des modifications du front-end.
 
 
 L’application web sera accessible sur votre localhost du port 3000 : http://localhost:3000/.
