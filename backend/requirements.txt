@@ -1,0 +1,14 @@
+starlette_exporter
+sqlalchemy
+pydantic
+psycopg2
+python-slugify
+aiofiles
+pillow
+python-multipart
+tortoise
+requests
+passlib
+pyjwt
+python-dotenv
+bcrypt
